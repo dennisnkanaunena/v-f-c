@@ -57,4 +57,72 @@
     <canvas id="confetti"></canvas>
 
     <!-- Background Music -->
-    <audio id="music" src="https
+    <audio id="music" src="https://www.fesliyanstudios.com/play-mp3/387" preload="auto"></audio>
+
+    <script>
+        function celebrate() {
+            document.querySelector('.balloons').style.display = 'block';
+            playConfetti();
+            playMusic();
+        }
+
+        function playMusic() {
+            var music = document.getElementById('music');
+            music.play();
+        }
+
+        function playConfetti() {
+            var canvas = document.getElementById("confetti");
+            var ctx = canvas.getContext("2d");
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            var confettiParticles = [];
+
+            function ConfettiParticle(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.size = Math.random() * 5 + 5;
+                this.speedX = Math.random() * 3 - 1.5;
+                this.speedY = Math.random() * 3 + 2;
+            }
+
+            function createConfetti() {
+                for (var i = 0; i < 100; i++) {
+                    var x = Math.random() * canvas.width;
+                    var y = Math.random() * canvas.height / 2;
+                    var color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                    confettiParticles.push(new ConfettiParticle(x, y, color));
+                }
+            }
+
+            function updateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (var i = 0; i < confettiParticles.length; i++) {
+                    var p = confettiParticles[i];
+                    p.y += p.speedY;
+                    p.x += p.speedX;
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    if (p.y > canvas.height) {
+                        confettiParticles.splice(i, 1);
+                        i--;
+                    }
+                }
+            }
+
+            function animateConfetti() {
+                updateConfetti();
+                requestAnimationFrame(animateConfetti);
+            }
+
+            createConfetti();
+            animateConfetti();
+        }
+    </script>
+
+</body>
+</html>

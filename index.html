@@ -23,10 +23,20 @@
         }
         label {
             font-size: 18px;
+            cursor: pointer;
         }
         .balloons {
             display: none;
             margin-top: 30px;
+            font-size: 24px;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -35,19 +45,16 @@
     <div class="question">Cleo, will you be my Valentine? ❤️</div>
     
     <div class="options">
-        <label><input type="checkbox" onclick="showBalloons()"> Yes</label>
-        <label><input type="checkbox" onclick="showBalloons()"> Definitely Yes</label>
+        <label><input type="checkbox" onclick="celebrate()"> Yes</label>
+        <label><input type="checkbox" onclick="celebrate()"> Definitely Yes</label>
     </div>
 
     <div class="balloons">
         🎈🎉🎊 Yay! Thank you, Cleo! 🎊🎉🎈
     </div>
 
-    <script>
-        function showBalloons() {
-            document.querySelector('.balloons').style.display = 'block';
-        }
-    </script>
+    <!-- Confetti Effect -->
+    <canvas id="confetti"></canvas>
 
-</body>
-</html>
+    <!-- Background Music -->
+    <audio id="music" src="https
